@@ -1,0 +1,63 @@
+@model List<GeradorFrontendEnterprise.Core.Models.Conflict>
+
+@{
+    ViewData["Title"] = "Wizard - Passo 2: Resolver Conflitos";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h4>Gerador Frontend Enterprise - Passo 2 de 5</h4>
+                    <p>Resolver Conflitos entre Banco e Manifesto</p>
+                </div>
+                <div class="card-body">
+                    @if (Model.Count == 0)
+                    {
+                        <div class="alert alert-success">Nenhum conflito detectado!</div>
+                        <form method="post" action="/wizard/step2">
+                            <button type="submit" class="btn btn-primary">Próximo</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" action="/wizard/step2">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Campo</th>
+                                        <th>Tipo de Conflito</th>
+                                        <th>Banco</th>
+                                        <th>Manifesto</th>
+                                        <th>Resolução</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var conflict in Model)
+                                    {
+                                        <tr>
+                                            <td>@conflict.FieldName</td>
+                                            <td>@conflict.Type</td>
+                                            <td>@conflict.DatabaseValue</td>
+                                            <td>@conflict.ManifestValue</td>
+                                            <td>
+                                                <select class="form-select" name="resolutions[@conflict.FieldName]">
+                                                    <option value="0">Usar Banco</option>
+                                                    <option value="1">Usar Manifesto</option>
+                                                    <option value="2">Ignorar</option>
+                                                    <option value="3">Revisão Manual</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Próximo</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

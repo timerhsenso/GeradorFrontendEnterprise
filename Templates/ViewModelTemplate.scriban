@@ -1,0 +1,32 @@
+namespace {{ namespace }};
+
+/// <summary>
+/// ViewModel gerado automaticamente para {{ entity_name }}
+/// Data: {{ generation_date }}
+/// </summary>
+public class {{ entity_name }}ViewModel
+{
+    {{ for field in fields }}
+    /// <summary>
+    /// {{ field.label }}
+    /// </summary>
+    public {{ field.type }} {{ field.name }} { get; set; }{{ if field.required }} = default!;{{ else }} = default;{{ end }}
+
+    {{ end }}
+    /// <summary>
+    /// Valida o ViewModel
+    /// </summary>
+    public List<string> Validate()
+    {
+        var errors = new List<string>();
+
+        {{ for field in fields }}
+        {{ if field.required }}
+        if (string.IsNullOrWhiteSpace({{ field.name }}?.ToString()))
+            errors.Add("{{ field.label }} é obrigatório");
+        {{ end }}
+        {{ end }}
+
+        return errors;
+    }
+}

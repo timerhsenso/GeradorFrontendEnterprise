@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Gerador Frontend Enterprise";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Gerador Frontend Enterprise v2.0</h2>
+                </div>
+                <div class="card-body text-center py-5">
+                    <h3 class="mb-4">Bem-vindo ao Gerador de CRUD Automático!</h3>
+                    <p class="lead mb-4">
+                        Gere automaticamente Controllers, ViewModels, Views Razor, JavaScript e CSS
+                        a partir do seu banco de dados SQL Server.
+                    </p>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>✨ Funcionalidades</h5>
+                            <ul class="list-unstyled">
+                                <li>✅ Leitura automática de schema</li>
+                                <li>✅ Detecção de conflitos</li>
+                                <li>✅ Configuração visual</li>
+                                <li>✅ Geração de código</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>🚀 Tecnologias</h5>
+                            <ul class="list-unstyled">
+                                <li>ASP.NET Core 8</li>
+                                <li>SQL Server 2019+</li>
+                                <li>Scriban Templates</li>
+                                <li>Bootstrap 5</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="/wizard/step1" class="btn btn-primary btn-lg">
+                        <i class="fas fa-magic"></i> Iniciar Wizard
+                    </a>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">📖 Documentação</h5>
+                            <p class="card-text">Leia a documentação técnica completa.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Ver Docs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">⚡ Guia Rápido</h5>
+                            <p class="card-text">Comece em 5 minutos.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Ver Guia</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+</style>

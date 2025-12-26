@@ -1,0 +1,60 @@
+@model {{ namespace }}.{{ entity_name }}ViewModel
+
+@{
+    ViewData["Title"] = "{{ entity_display_name }}";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {{ for field in fields }}
+                <div class="mb-3">
+                    <label for="{{ field.name }}" class="form-label">{{ field.label }}</label>
+                    <input type="text" class="form-control" id="{{ field.name }}" name="{{ field.name }}" 
+                           value="@Model.{{ field.name }}" {{ if field.required }}required{{ end }} />
+                </div>
+                {{ end }}
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Listagem de {{ entity_display_name }}</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        {{ for field in fields }}
+                        <th>{{ field.label }}</th>
+                        {{ end }}
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão carregados via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/{{ entity_name_lower }}.generated.js"></script>
+}

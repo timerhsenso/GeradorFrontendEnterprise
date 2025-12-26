@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Wizard - Passo 5: Download";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4>Gerador Frontend Enterprise - Passo 5 de 5</h4>
+                    <p>Download do Código Gerado</p>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        <h5>Sucesso!</h5>
+                        <p>Seu código foi gerado com sucesso!</p>
+                    </div>
+                    <a href="/wizard/download/@Context.Session.GetString("GenerationId")" class="btn btn-primary btn-lg">
+                        <i class="fas fa-download"></i> Baixar Código (ZIP)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Wizard - Passo 1: Selecione a Entidade";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Gerador Frontend Enterprise - Passo 1 de 5</h4>
+                    <p>Selecione a Entidade</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/wizard/step1">
+                        <div class="mb-3">
+                            <label for="entityId" class="form-label">Entidade:</label>
+                            <input type="text" class="form-control" id="entityId" name="entityId" required>
+                            <small class="form-text text-muted">Ex: TreTiposTreinamento</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Próximo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

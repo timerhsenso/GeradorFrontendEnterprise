@@ -1,0 +1,121 @@
+using Microsoft.AspNetCore.Mvc;
+using GeradorFrontendEnterprise.Core.Models;
+using GeradorFrontendEnterprise.Core.Contracts;
+
+namespace {{ namespace }};
+
+/// <summary>
+/// Controller gerado automaticamente para {{ entity_name }}
+/// Data: {{ generation_date }}
+/// </summary>
+[ApiController]
+[Route("api/[controller]")]
+public class {{ entity_name }}Controller : ControllerBase
+{
+    private readonly ILogger<{{ entity_name }}Controller> _logger;
+
+    public {{ entity_name }}Controller(ILogger<{{ entity_name }}Controller> logger)
+    {
+        _logger = logger;
+    }
+
+    /// <summary>
+    /// Obtém todos os registros de {{ entity_name }}
+    /// </summary>
+    [HttpGet]
+    public async Task<ActionResult<List<{{ entity_name }}ViewModel>>> GetAll()
+    {
+        _logger.LogInformation("Obtendo todos os registros de {{ entity_name }}");
+        
+        try
+        {
+            // TODO: Implementar lógica de obtenção
+            return Ok(new List<{{ entity_name }}ViewModel>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao obter registros de {{ entity_name }}");
+            return StatusCode(500, new { message = "Erro ao obter registros" });
+        }
+    }
+
+    /// <summary>
+    /// Obtém um registro de {{ entity_name }} por ID
+    /// </summary>
+    [HttpGet("{id}")]
+    public async Task<ActionResult<{{ entity_name }}ViewModel>> GetById(int id)
+    {
+        _logger.LogInformation("Obtendo {{ entity_name }} com ID {Id}", id);
+        
+        try
+        {
+            // TODO: Implementar lógica de obtenção por ID
+            return Ok(new {{ entity_name }}ViewModel());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao obter {{ entity_name }} com ID {Id}", id);
+            return StatusCode(500, new { message = "Erro ao obter registro" });
+        }
+    }
+
+    /// <summary>
+    /// Cria um novo registro de {{ entity_name }}
+    /// </summary>
+    [HttpPost]
+    public async Task<ActionResult<{{ entity_name }}ViewModel>> Create([FromBody] {{ entity_name }}ViewModel model)
+    {
+        _logger.LogInformation("Criando novo registro de {{ entity_name }}");
+        
+        try
+        {
+            // TODO: Implementar lógica de criação
+            return CreatedAtAction(nameof(GetById), new { id = 0 }, model);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao criar {{ entity_name }}");
+            return StatusCode(500, new { message = "Erro ao criar registro" });
+        }
+    }
+
+    /// <summary>
+    /// Atualiza um registro de {{ entity_name }}
+    /// </summary>
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] {{ entity_name }}ViewModel model)
+    {
+        _logger.LogInformation("Atualizando {{ entity_name }} com ID {Id}", id);
+        
+        try
+        {
+            // TODO: Implementar lógica de atualização
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao atualizar {{ entity_name }} com ID {Id}", id);
+            return StatusCode(500, new { message = "Erro ao atualizar registro" });
+        }
+    }
+
+    /// <summary>
+    /// Deleta um registro de {{ entity_name }}
+    /// </summary>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        _logger.LogInformation("Deletando {{ entity_name }} com ID {Id}", id);
+        
+        try
+        {
+            // TODO: Implementar lógica de deleção
+            return Ok(new { message = "Registro deletado com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao deletar {{ entity_name }} com ID {Id}", id);
+            return StatusCode(500, new { message = "Erro ao deletar registro" });
+        }
+    }
+}

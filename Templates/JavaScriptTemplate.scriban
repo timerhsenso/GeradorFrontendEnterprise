@@ -1,0 +1,158 @@
+/**
+ * Script gerado automaticamente para {{ entity_name }}
+ * Data: {{ generation_date }}
+ */
+
+(function () {
+    'use strict';
+
+    const API_BASE = '/api/{{ entity_name_lower }}';
+    let dataTable;
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeDataTable();
+        attachEventHandlers();
+    });
+
+    /**
+     * Inicializa a DataTable
+     */
+    function initializeDataTable() {
+        dataTable = $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: API_BASE,
+                type: 'GET',
+                error: function (xhr, error, thrown) {
+                    console.error('Erro ao carregar dados:', error);
+                    showAlert('Erro ao carregar dados', 'danger');
+                }
+            },
+            columns: [
+                {{ for field in fields }}
+                { data: '{{ field.name }}', name: '{{ field.name }}' },
+                {{ end }}
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn btn-sm btn-info" onclick="editRecord(${row.id})">Editar</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteRecord(${row.id})">Deletar</button>
+                        `;
+                    }
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json'
+            }
+        });
+    }
+
+    /**
+     * Anexa manipuladores de eventos
+     */
+    function attachEventHandlers() {
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            saveRecord();
+        });
+    }
+
+    /**
+     * Salva um registro
+     */
+    async function saveRecord() {
+        const formData = new FormData(document.querySelector('form'));
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch(API_BASE, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                showAlert('Registro salvo com sucesso', 'success');
+                dataTable.ajax.reload();
+                document.querySelector('form').reset();
+            } else {
+                showAlert('Erro ao salvar registro', 'danger');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            showAlert('Erro ao salvar registro', 'danger');
+        }
+    }
+
+    /**
+     * Edita um registro
+     */
+    async function editRecord(id) {
+        try {
+            const response = await fetch(`${API_BASE}/${id}`);
+            const data = await response.json();
+            
+            // Preencher formulário com dados
+            Object.keys(data).forEach(key => {
+                const input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    input.value = data[key];
+                }
+            });
+        } catch (error) {
+            console.error('Erro:', error);
+            showAlert('Erro ao carregar registro', 'danger');
+        }
+    }
+
+    /**
+     * Deleta um registro
+     */
+    async function deleteRecord(id) {
+        if (!confirm('Tem certeza que deseja deletar este registro?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                showAlert('Registro deletado com sucesso', 'success');
+                dataTable.ajax.reload();
+            } else {
+                showAlert('Erro ao deletar registro', 'danger');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            showAlert('Erro ao deletar registro', 'danger');
+        }
+    }
+
+    /**
+     * Exibe um alerta
+     */
+    function showAlert(message, type) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.insertBefore(alertDiv, document.body.firstChild);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 5000);
+    }
+
+    // Expor funções globais
+    window.editRecord = editRecord;
+    window.deleteRecord = deleteRecord;
+})();
